@@ -35,7 +35,7 @@ export default function TimeScreen() {
   };
 
   return (
-    <Screen title="Time" subtitle="Add and subtract hours : minutes">
+    <Screen title="Time">
       <Card accent testID="time-total-card">
         <Label>Sum</Label>
         <View style={styles.totalCol}>

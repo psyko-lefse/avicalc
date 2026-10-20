@@ -34,6 +34,9 @@ Expo Router frontend only (no backend). Tabs: Fuel, Torque, Time, MEL (NativeTab
 ## Update 5 (2026-06)
 - Time: decimal sum centered below HH:MM; Undo (left) removes last entry, Reset (right)
 
+## Update 6 (2026-06)
+- Removed header subtitles on all tabs; added "Jet A1 · density 0.8 kg/L" note at bottom of Fuel screen
+
 ## Backlog
 - P1: Copy/share result, calculation history
 - P2: Custom fonts (Space Grotesk), extra unit conversions (temperature, pressure)

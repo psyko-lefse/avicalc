@@ -19,7 +19,7 @@ export default function TorqueScreen() {
   const nm = parseNum(value) * TO_NM[from];
 
   return (
-    <Screen title="Torque" subtitle="Nm · in.lbs · ft.lbs">
+    <Screen title="Torque">
       <Card>
         <View style={{ gap: 6 }}>
           <Label>Convert from</Label>

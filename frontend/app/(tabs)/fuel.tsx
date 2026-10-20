@@ -24,7 +24,7 @@ export default function FuelScreen() {
   const negative = hasInput && upliftWeight < 0;
 
   return (
-    <Screen title="Fuel Uplift" subtitle={`Jet A1 · density ${DENSITY} kg/L`}>
+    <Screen title="Fuel Uplift">
       <Card>
         <NumberField
           label="Requested fuel"
@@ -76,11 +76,22 @@ export default function FuelScreen() {
           setShutdown("");
         }}
       />
+      <Text style={styles.note} testID="fuel-density-note">
+        Jet A1 · density {DENSITY} kg/L
+      </Text>
     </Screen>
   );
 }
 
 const useStyles = makeStyles((c) => ({
+  note: {
+    fontSize: 12,
+    fontFamily: fonts.semibold,
+    color: c.muted,
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: 1.4,
+  },
   row: { flexDirection: "row", alignItems: "baseline", gap: 8 },
   big: { fontSize: 48, fontFamily: fonts.display, color: c.onBrandTertiary, fontVariant: ["tabular-nums"], letterSpacing: -1 },
   bigUnit: { fontSize: 20, fontFamily: fonts.semibold, color: c.onBrandTertiary },

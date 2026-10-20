@@ -29,7 +29,7 @@ export default function MelScreen() {
   };
 
   return (
-    <Screen title="MEL Due Date" subtitle="Discovery day excluded">
+    <Screen title="MEL Due Date">
       <Card>
         <Label>Date of discovery</Label>
         <View style={styles.dateRow}>
