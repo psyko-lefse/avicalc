@@ -41,6 +41,10 @@ Expo Router frontend only (no backend). Tabs: Fuel, Torque, Time, MEL (NativeTab
 - Number inputs accept only one decimal separator ("." or ","), pasted comma decimals work
 - Torque display rounding (half up): in.lbs whole number, Nm and ft.lbs 1 decimal
 
+## Update 8 (2026-06)
+- Play Store assets in /app/frontend/assets/store-screenshots: 12 phone screenshots 1080x1920 (dark + light: splash, fuel, torque, time, MEL, calendar) + feature graphic 1024x500
+- Font fix: MEL weekday line and Time empty-history text now use Barlow
+
 ## Backlog
 - P1: Copy/share result, calculation history
 - P2: Custom fonts (Space Grotesk), extra unit conversions (temperature, pressure)

@@ -151,7 +151,7 @@ const useStyles = makeStyles((c) => ({
   },
   colon: { fontSize: 28, fontFamily: fonts.display, color: c.muted, paddingBottom: 14 },
   actions: { flexDirection: "row", gap: 12 },
-  empty: { fontSize: 15, color: c.muted, marginTop: -8 },
+  empty: { fontSize: 15, fontFamily: fonts.medium, color: c.muted, marginTop: -8 },
   histRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 2 },
   histDivider: { borderTopWidth: 1, borderTopColor: c.divider, paddingTop: 10 },
   histDelta: { flex: 1, fontSize: 16, fontFamily: fonts.semibold, color: c.onSurfaceSecondary, fontVariant: ["tabular-nums"] },

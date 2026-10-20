@@ -116,7 +116,7 @@ const useStyles = makeStyles((c) => ({
     gap: 8,
   },
   dateText: { fontSize: 22, fontFamily: fonts.semibold, color: c.onSurface, fontVariant: ["tabular-nums"] },
-  weekday: { fontSize: 15, color: c.muted, textAlign: "center", marginTop: -8 },
+  weekday: { fontSize: 15, fontFamily: fonts.medium, color: c.muted, textAlign: "center", marginTop: -8 },
   result: {
     flexDirection: "row",
     alignItems: "center",
