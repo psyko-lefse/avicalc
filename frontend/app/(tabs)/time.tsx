@@ -4,6 +4,7 @@ import { Text, TextInput, View } from "react-native";
 
 import { Button, Card, Label, Screen } from "@/src/components/ui";
 import { makeStyles, useTheme } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 type Entry = { id: number; delta: number; sum: number };
 
@@ -118,8 +119,8 @@ export default function TimeScreen() {
 
 const useStyles = makeStyles((c) => ({
   totalRow: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginTop: -8 },
-  total: { fontSize: 48, fontWeight: "700", color: c.onBrandTertiary, fontVariant: ["tabular-nums"], letterSpacing: -1 },
-  decimal: { fontSize: 18, fontWeight: "600", color: c.onBrandTertiary, fontVariant: ["tabular-nums"] },
+  total: { fontSize: 48, fontFamily: fonts.display, color: c.onBrandTertiary, fontVariant: ["tabular-nums"], letterSpacing: -1 },
+  decimal: { fontSize: 18, fontFamily: fonts.semibold, color: c.onBrandTertiary, fontVariant: ["tabular-nums"] },
   inputRow: { flexDirection: "row", alignItems: "flex-end", gap: 8 },
   fieldWrap: { flex: 1, gap: 6 },
   field: {
@@ -131,16 +132,16 @@ const useStyles = makeStyles((c) => ({
     borderColor: c.border,
     paddingHorizontal: 12,
     fontSize: 28,
-    fontWeight: "600",
+    fontFamily: fonts.semibold,
     color: c.onSurface,
     textAlign: "center",
     fontVariant: ["tabular-nums"],
   },
-  colon: { fontSize: 28, fontWeight: "700", color: c.muted, paddingBottom: 14 },
+  colon: { fontSize: 28, fontFamily: fonts.display, color: c.muted, paddingBottom: 14 },
   actions: { flexDirection: "row", gap: 12 },
   empty: { fontSize: 15, color: c.muted, marginTop: -8 },
   histRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 2 },
   histDivider: { borderTopWidth: 1, borderTopColor: c.divider, paddingTop: 10 },
-  histDelta: { flex: 1, fontSize: 16, fontWeight: "600", color: c.onSurfaceSecondary, fontVariant: ["tabular-nums"] },
-  histSum: { fontSize: 16, fontWeight: "600", color: c.muted, fontVariant: ["tabular-nums"] },
+  histDelta: { flex: 1, fontSize: 16, fontFamily: fonts.semibold, color: c.onSurfaceSecondary, fontVariant: ["tabular-nums"] },
+  histSum: { fontSize: 16, fontFamily: fonts.semibold, color: c.muted, fontVariant: ["tabular-nums"] },
 }));

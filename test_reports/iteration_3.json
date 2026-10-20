@@ -1,0 +1,42 @@
+{
+  "summary": "Frontend-only regression + visual restyle verification for AviCalc (navy #01244D / cyan #00C8FE, Montserrat Bold + Barlow). Verified: branded intro-splash renders at '/' and auto-navigates to /fuel within ~1.6s; header-logo + screen-title + gear button present on every tab; gear opens /settings; all four calculators work identically in light & dark color schemes; Montserrat-Bold / Barlow fonts load (document.fonts.status=loaded, computed fontFamily='Montserrat-Bold' for titles); no horizontal overflow at 390px (scrollWidth==clientWidth==390). No bugs found. No deprecated Expo packages. No SafeAreaView issues. No regressions versus iteration_2.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_3.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "app/index.tsx: Branded intro-splash uses expo-image with contentFit='cover' and FadeIn 400ms; auto-replaces to /fuel after 1600ms via useEffect timeout with cleanup. Background hard-coded to #01244D so the splash looks identical in both color schemes, which matches the artwork and user expectation.",
+    "src/theme.ts: Full light + dark palettes added; dark uses navy #001A3D surface with white text (rgb(255,255,255)) giving ~15:1 contrast against surface, and cyan #00C8FE accent — WCAG AA/AAA on both schemes. Appearance.setColorScheme(null) at module load lets system scheme drive the UI (verified via page.emulate_media(color_scheme='dark')).",
+    "src/fonts.ts + _layout.tsx: Four TTFs (Montserrat 700/800, Barlow Medium/SemiBold) loaded via useFonts; layout gates render until fontsLoaded||fontError, preventing FOUT. Verified computed fontFamily='Montserrat-Bold' on screen-title.",
+    "src/components/ui.tsx: Screen header renders header-logo (expo-image, 40x40, radius 10), screen-title (Montserrat-Bold 24 letterSpacing -0.3), optional uppercase Barlow subtitle, and 44x44 gear Pressable — meets 44pt touch target. KeyboardAwareScrollView wraps content.",
+    "No raw strings outside <Text/>; all interactive elements use Pressable with testID; styles use StyleSheet.create via makeStyles — RN best-practice."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Preview URL https://flight-ops-calc.preview.emergentagent.com, viewport 390x844. Current preview date is 2026-10-20. Key testIDs: intro-splash, header-logo, screen-title, open-settings-button, fuel-requested-input, fuel-shutdown-input, fuel-uplift-volume (displays '—' when either input empty), torque-input (NOT torque-nm-input), torque-result-in.lbs, torque-result-ft.lbs (note the '.' in the id — use attribute selector), time-hours-input, time-minutes-input, time-add-button, time-subtract-button, time-reset-button, time-total, time-history-row-{n}, mel-date-input (Pressable), mel-result-{b|c|d}-date, calendar-modal, calendar-prev-month, calendar-next-month, calendar-month-label, calendar-day-YYYY-MM-DD, calendar-today-button, calendar-cancel-button. Dark/light switch via Playwright page.emulate_media(color_scheme=...). Fonts load without network issues (document.fonts.status='loaded', fontFamily='Montserrat-Bold'). The splash view at '/' uses hard-coded navy backgroundColor #01244D by design (matches artwork) so it looks identical in both schemes.",
+  "rca_of_issue": "N/A — no bugs. All 4 user acceptance criteria pass: (1) intro-splash present at '/' at 400ms and auto-navigates to /fuel in <2s; (2) header-logo + screen-title visible on Fuel/Torque/Time/MEL and gear opens /settings; (3) regression — fuel 5000/1800kg → 4,000 L (dash when either input empty) ✓, torque 100 Nm → 885.07 in.lbs / 73.76 ft.lbs ✓ in both schemes, time +1:30 then -0:45 → total 0:45 with history row '−0:45 = 0:45' ✓, MEL 2026-10-05 → Cat B 'Thu 08 Oct 2026', C 'Thu 15 Oct 2026', D 'Tue 02 Feb 2027' ✓; (4) readability — Montserrat loaded, title color rgb(255,255,255) on #001A3D in dark, #00244F on #F2F6FB in light, both AAA contrast; no overflow at 390px.",
+  "verified_cases": {
+    "intro_splash_renders_at_root": "intro-splash view present at ~400ms, full splash artwork rendered (helicopter + AviCalc logo + torque wrench artwork visible)",
+    "intro_auto_navigation": "page.wait_for_url('**/fuel**') succeeded within 5s (actual ~1.6s per useEffect timeout)",
+    "header_on_all_tabs": "header-logo + screen-title visible on Fuel ('Fuel Uplift'), Torque ('Torque'), Time ('Time'), MEL ('MEL Due Date'); gear always visible",
+    "gear_opens_settings": "clicking open-settings-button navigates to /settings (modal) and renders Weight Unit / Volume Unit segmented controls",
+    "fuel_light_5000_1800": "fuel-uplift-volume = '4,000' (L shown by sibling)",
+    "fuel_dash_when_empty": "clearing requested → fuel-uplift-volume = '—'",
+    "fuel_dark_5000_1800": "same '4,000' in dark scheme, navy card bg with cyan accent, readable",
+    "torque_light_100Nm": "885.07 in.lbs / 73.76 ft.lbs (visual confirmation in screenshot)",
+    "torque_dark_100Nm": "885.07 in.lbs / 73.76 ft.lbs (visual confirmation in dark screenshot)",
+    "time_add_subtract": "+1:30 → total 1:30, then -0:45 → total 0:45, history-row-0 shows '−0:45 = 0:45'",
+    "mel_calendar_select_2026_10_05": "Cat B 'Thu 08 Oct 2026', Cat C 'Thu 15 Oct 2026', Cat D 'Tue 02 Feb 2027'",
+    "fonts_loaded": "document.fonts.status='loaded', title fontFamily='Montserrat-Bold'",
+    "no_horizontal_overflow": "scrollWidth=390, clientWidth=390 (no overflow at 390px viewport)",
+    "dark_contrast": "title rgb(255,255,255) over navy surface — AAA"
+  }
+}

@@ -1,4 +1,5 @@
 import Feather from "@react-native-vector-icons/feather";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { ReactNode } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
@@ -8,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { tap, select } from "@/src/haptics";
 import { usesNativeTabs } from "@/src/navigation";
 import { makeStyles, useTheme } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 export const parseNum = (s: string) => {
   const n = parseFloat(s.replace(",", "."));
@@ -27,6 +29,7 @@ export function Screen({ title, subtitle, children }: { title: string; subtitle?
   return (
     <View style={styles.root}>
       <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
+        <Image source={require("../../assets/images/icon.png")} style={styles.logo} testID="header-logo" />
         <View style={{ flex: 1 }}>
           <Text style={styles.title} testID="screen-title">{title}</Text>
           {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
@@ -179,8 +182,16 @@ const useStyles = makeStyles((c) => ({
     borderBottomWidth: 1,
     borderBottomColor: c.divider,
   },
-  title: { fontSize: 28, fontWeight: "700", color: c.onSurface, letterSpacing: -0.5 },
-  subtitle: { fontSize: 13, color: c.muted, marginTop: 2 },
+  logo: { width: 40, height: 40, borderRadius: 10, marginRight: 12 },
+  title: { fontSize: 24, fontFamily: fonts.display, color: c.onSurface, letterSpacing: -0.3 },
+  subtitle: {
+    fontSize: 12,
+    fontFamily: fonts.semibold,
+    color: c.muted,
+    marginTop: 2,
+    textTransform: "uppercase",
+    letterSpacing: 1.4,
+  },
   gear: {
     width: 44,
     height: 44,
@@ -199,7 +210,7 @@ const useStyles = makeStyles((c) => ({
     gap: 16,
   },
   cardAccent: { backgroundColor: c.brandTertiary, borderColor: c.brandTertiary },
-  label: { fontSize: 13, fontWeight: "600", color: c.muted, textTransform: "uppercase", letterSpacing: 0.6 },
+  label: { fontSize: 13, fontFamily: fonts.semibold, color: c.muted, textTransform: "uppercase", letterSpacing: 1.4 },
   inputWrap: {
     flexDirection: "row",
     alignItems: "center",
@@ -214,12 +225,12 @@ const useStyles = makeStyles((c) => ({
     flex: 1,
     minWidth: 0,
     fontSize: 24,
-    fontWeight: "600",
+    fontFamily: fonts.semibold,
     color: c.onSurface,
     paddingVertical: 12,
     fontVariant: ["tabular-nums"],
   },
-  inputUnit: { fontSize: 16, fontWeight: "600", color: c.muted, marginLeft: 8 },
+  inputUnit: { fontSize: 16, fontFamily: fonts.semibold, color: c.muted, marginLeft: 8 },
   seg: {
     flexDirection: "row",
     backgroundColor: c.surfaceTertiary,
@@ -229,7 +240,7 @@ const useStyles = makeStyles((c) => ({
   },
   segItem: { flex: 1, minHeight: 44, borderRadius: 8, alignItems: "center", justifyContent: "center" },
   segItemActive: { backgroundColor: c.brandPrimary },
-  segText: { fontSize: 15, fontWeight: "600", color: c.onSurfaceTertiary },
+  segText: { fontSize: 15, fontFamily: fonts.semibold, color: c.onSurfaceTertiary },
   segTextActive: { color: c.onBrandPrimary },
   btn: {
     flexDirection: "row",
@@ -242,6 +253,6 @@ const useStyles = makeStyles((c) => ({
     backgroundColor: c.surfaceTertiary,
   },
   btnPrimary: { backgroundColor: c.brandPrimary },
-  btnText: { fontSize: 15, fontWeight: "600", color: c.onSurfaceTertiary },
+  btnText: { fontSize: 15, fontFamily: fonts.semibold, color: c.onSurfaceTertiary },
   btnTextPrimary: { color: c.onBrandPrimary },
 }));

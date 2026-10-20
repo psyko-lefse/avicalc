@@ -7,6 +7,7 @@ import { Component, type ErrorInfo, type PropsWithChildren, useState } from "rea
 import { Platform, Pressable, ScrollView, Text, View } from "react-native";
 
 import { makeStyles } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 type ErrorBoundaryState = { error: Error | null };
 
@@ -91,7 +92,7 @@ const useStyles = makeStyles((colors) => ({
   title: {
     color: colors.onSurface,
     fontSize: 22,
-    fontWeight: "700",
+    fontFamily: fonts.display,
     textAlign: "center",
   },
   message: {
@@ -118,7 +119,7 @@ const useStyles = makeStyles((colors) => ({
   buttonText: {
     color: colors.onBrandPrimary,
     fontSize: 15,
-    fontWeight: "600",
+    fontFamily: fonts.semibold,
     textAlign: "center",
   },
   detailsToggle: {

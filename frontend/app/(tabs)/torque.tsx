@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 
 import { Button, Card, fmt, Label, NumberField, Screen, Segmented, parseNum } from "@/src/components/ui";
 import { makeStyles } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 type Unit = "nm" | "inlb" | "ftlb";
 // Value of 1 unit expressed in Nm
@@ -51,6 +52,6 @@ export default function TorqueScreen() {
 const useStyles = makeStyles((c) => ({
   row: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", gap: 8 },
   rowDivider: { borderTopWidth: 1, borderTopColor: c.onBrandTertiary + "33", paddingTop: 16 },
-  big: { fontSize: 40, fontWeight: "700", color: c.onBrandTertiary, fontVariant: ["tabular-nums"], flexShrink: 1 },
-  unit: { fontSize: 18, fontWeight: "600", color: c.onBrandTertiary },
+  big: { fontSize: 40, fontFamily: fonts.display, color: c.onBrandTertiary, fontVariant: ["tabular-nums"], flexShrink: 1 },
+  unit: { fontSize: 18, fontFamily: fonts.semibold, color: c.onBrandTertiary },
 }));

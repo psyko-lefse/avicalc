@@ -23,6 +23,11 @@ Expo Router frontend only (no backend). Tabs: Fuel, Torque, Time, MEL (NativeTab
 - MEL: tapping date opens custom calendar picker (works in Expo Go/web)
 - E2E tested: all passing (iteration_2)
 
+## Update 3 (2026-06)
+- Rebranded to AviCalc: user logo as app icon/adaptive icon/native splash (navy #01244D), full splash artwork as in-app intro
+- Restyled theme navy/cyan (light + dark), fonts Montserrat Bold (display) + Barlow (labels), logo in header
+- E2E tested: all passing (iteration_3)
+
 ## Backlog
 - P1: Copy/share result, calculation history
 - P2: Custom fonts (Space Grotesk), extra unit conversions (temperature, pressure)

@@ -4,6 +4,7 @@ import { Text, View } from "react-native";
 import { Button, Card, fmt, Label, NumberField, Screen, parseNum } from "@/src/components/ui";
 import { useSettings } from "@/src/settings";
 import { makeStyles } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 const DENSITY = 0.8; // kg per liter, Jet A1
 const LB_TO_KG = 0.45359237;
@@ -81,9 +82,9 @@ export default function FuelScreen() {
 
 const useStyles = makeStyles((c) => ({
   row: { flexDirection: "row", alignItems: "baseline", gap: 8 },
-  big: { fontSize: 48, fontWeight: "700", color: c.onBrandTertiary, fontVariant: ["tabular-nums"], letterSpacing: -1 },
-  bigUnit: { fontSize: 20, fontWeight: "600", color: c.onBrandTertiary },
-  warn: { fontSize: 16, fontWeight: "600", color: c.onBrandTertiary, marginTop: 4 },
+  big: { fontSize: 48, fontFamily: fonts.display, color: c.onBrandTertiary, fontVariant: ["tabular-nums"], letterSpacing: -1 },
+  bigUnit: { fontSize: 20, fontFamily: fonts.semibold, color: c.onBrandTertiary },
+  warn: { fontSize: 16, fontFamily: fonts.semibold, color: c.onBrandTertiary, marginTop: 4 },
   meta: { flexDirection: "row", justifyContent: "space-between", flexWrap: "wrap", gap: 8 },
-  metaText: { fontSize: 15, fontWeight: "500", color: c.onBrandTertiary, fontVariant: ["tabular-nums"] },
+  metaText: { fontSize: 15, fontFamily: fonts.medium, color: c.onBrandTertiary, fontVariant: ["tabular-nums"] },
 }));

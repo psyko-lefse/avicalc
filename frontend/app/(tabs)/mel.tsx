@@ -7,6 +7,7 @@ import { CalendarModal } from "@/src/components/calendar-modal";
 import { Button, Card, Label, NumberField, Screen } from "@/src/components/ui";
 import { tap } from "@/src/haptics";
 import { makeStyles, useTheme } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 const CATS = [
   { cat: "B", days: 3 },
@@ -114,7 +115,7 @@ const useStyles = makeStyles((c) => ({
     justifyContent: "center",
     gap: 8,
   },
-  dateText: { fontSize: 22, fontWeight: "600", color: c.onSurface, fontVariant: ["tabular-nums"] },
+  dateText: { fontSize: 22, fontFamily: fonts.semibold, color: c.onSurface, fontVariant: ["tabular-nums"] },
   weekday: { fontSize: 15, color: c.muted, textAlign: "center", marginTop: -8 },
   result: {
     flexDirection: "row",
@@ -125,11 +126,11 @@ const useStyles = makeStyles((c) => ({
     padding: 16,
   },
   badge: { gap: 2 },
-  badgeText: { fontSize: 20, fontWeight: "700", color: c.onBrandTertiary },
-  badgeDays: { fontSize: 13, fontWeight: "600", color: c.onBrandTertiary, opacity: 0.8 },
-  resultLabel: { fontSize: 12, fontWeight: "600", color: c.onBrandTertiary, opacity: 0.8, textTransform: "uppercase" },
-  resultDate: { fontSize: 22, fontWeight: "700", color: c.onBrandTertiary, fontVariant: ["tabular-nums"] },
+  badgeText: { fontSize: 20, fontFamily: fonts.display, color: c.onBrandTertiary },
+  badgeDays: { fontSize: 13, fontFamily: fonts.semibold, color: c.onBrandTertiary, opacity: 0.8 },
+  resultLabel: { fontSize: 12, fontFamily: fonts.semibold, color: c.onBrandTertiary, opacity: 0.8, textTransform: "uppercase" },
+  resultDate: { fontSize: 22, fontFamily: fonts.display, color: c.onBrandTertiary, fontVariant: ["tabular-nums"] },
   customOut: { flexDirection: "row", justifyContent: "space-between", alignItems: "baseline", gap: 8 },
-  customLabel: { fontSize: 13, fontWeight: "600", color: c.muted, textTransform: "uppercase" },
-  customDate: { fontSize: 22, fontWeight: "700", color: c.brandPrimary, fontVariant: ["tabular-nums"] },
+  customLabel: { fontSize: 13, fontFamily: fonts.semibold, color: c.muted, textTransform: "uppercase" },
+  customDate: { fontSize: 22, fontFamily: fonts.display, color: c.brandPrimary, fontVariant: ["tabular-nums"] },
 }));

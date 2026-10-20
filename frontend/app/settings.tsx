@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Label, Segmented } from "@/src/components/ui";
 import { useSettings } from "@/src/settings";
 import { makeStyles, useTheme } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 export default function SettingsScreen() {
   const styles = useStyles();
@@ -55,7 +56,7 @@ export default function SettingsScreen() {
         <View style={styles.info}>
           <Feather name="info" size={16} color={colors.muted} />
           <Text style={styles.infoText}>
-            Fuel uplift uses Jet A1 density 0.8 kg/L. 1 US gal = 3.785 L, 1 lb = 0.4536 kg. Settings are saved on this device.
+            AviCalc · Maintenance calculations. Fuel uplift uses Jet A1 density 0.8 kg/L. 1 US gal = 3.785 L, 1 lb = 0.4536 kg. Settings are saved on this device.
           </Text>
         </View>
       </ScrollView>
@@ -74,7 +75,7 @@ const useStyles = makeStyles((c) => ({
     borderBottomWidth: 1,
     borderBottomColor: c.divider,
   },
-  title: { fontSize: 28, fontWeight: "700", color: c.onSurface },
+  title: { fontSize: 28, fontFamily: fonts.display, color: c.onSurface },
   close: {
     width: 44,
     height: 44,

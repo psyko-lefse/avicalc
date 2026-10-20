@@ -1,11 +1,12 @@
 import Feather from "@react-native-vector-icons/feather";
 import { Tabs } from "expo-router";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
-import { Platform } from "react-native";
+import { ColorValue, Platform } from "react-native";
 
 import { select } from "@/src/haptics";
 import { usesNativeTabs } from "@/src/navigation";
 import { useTheme } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 export default function TabsLayout() {
   const { colors } = useTheme();
@@ -34,8 +35,8 @@ export default function TabsLayout() {
   }
 
   const icon = (name: string) =>
-    function TabIcon({ color }: { color: string }) {
-      return <Feather name={name as any} size={22} color={color} />;
+    function TabIcon({ color }: { color: ColorValue }) {
+      return <Feather name={name as any} size={22} color={color as string} />;
     };
 
   return (
@@ -51,7 +52,7 @@ export default function TabsLayout() {
           ...(Platform.OS === "web" ? { height: 64 } : {}),
         },
         tabBarItemStyle: { alignSelf: "center" },
-        tabBarLabelStyle: { fontSize: 12, fontWeight: "600" },
+        tabBarLabelStyle: { fontSize: 12, fontFamily: fonts.semibold },
       }}
     >
       <Tabs.Screen name="fuel" options={{ title: "Fuel", tabBarIcon: icon("droplet"), tabBarButtonTestID: "tab-fuel" }} />

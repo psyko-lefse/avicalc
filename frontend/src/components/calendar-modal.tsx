@@ -15,6 +15,7 @@ import { Modal, Pressable, Text, View } from "react-native";
 import { Button } from "@/src/components/ui";
 import { select, tap } from "@/src/haptics";
 import { makeStyles, useTheme } from "@/src/theme";
+import { fonts } from "@/src/fonts";
 
 const WEEKDAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
@@ -132,13 +133,13 @@ const useStyles = makeStyles((c) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  month: { fontSize: 18, fontWeight: "700", color: c.onSurfaceSecondary },
+  month: { fontSize: 18, fontFamily: fonts.display, color: c.onSurfaceSecondary },
   grid: { flexDirection: "row", flexWrap: "wrap" },
   weekday: {
     width: `${100 / 7}%`,
     textAlign: "center",
     fontSize: 12,
-    fontWeight: "600",
+    fontFamily: fonts.semibold,
     color: c.muted,
     paddingVertical: 6,
   },
@@ -146,8 +147,8 @@ const useStyles = makeStyles((c) => ({
   day: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" },
   today: { borderWidth: 1.5, borderColor: c.brandPrimary },
   selected: { backgroundColor: c.brandPrimary, borderColor: c.brandPrimary },
-  dayText: { fontSize: 16, fontWeight: "500", color: c.onSurfaceSecondary, fontVariant: ["tabular-nums"] },
+  dayText: { fontSize: 16, fontFamily: fonts.medium, color: c.onSurfaceSecondary, fontVariant: ["tabular-nums"] },
   outText: { color: c.muted, opacity: 0.5 },
-  selectedText: { color: c.onBrandPrimary, fontWeight: "700" },
+  selectedText: { color: c.onBrandPrimary, fontFamily: fonts.display },
   footer: { flexDirection: "row", gap: 12 },
 }));
