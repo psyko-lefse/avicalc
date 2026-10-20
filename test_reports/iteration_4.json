@@ -1,0 +1,35 @@
+{
+  "summary": "AviCalc frontend-only verification of (a) decimal input sanitization and (b) torque half-up rounding. All 6 torque assertions and the fuel regression passed on viewport 390x844 using press_sequentially so onChangeText sanitization triggers.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["Playwright executed via mcp_browser_automation against https://flight-ops-calc.preview.emergentagent.com/torque and /"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "sanitizeDecimal in /app/frontend/src/components/ui.tsx correctly preserves the first separator (either '.' or ',') and strips the rest; parseNum normalizes commas to dots before parseFloat.",
+    "fmt in ui.tsx uses toPrecision(12) to strip float noise before Math.round, giving true half-up (8.85->8.9, 1 Nm->8.85 inlb->rounds to 9).",
+    "torque.tsx DECIMALS map correctly set to {nm:1, inlb:0, ftlb:1}."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Torque screen testIDs: torque-input, torque-from-unit-{nm|inlb|ftlb}, torque-result-{nm|inlb|ftlb}, torque-clear-button. Fuel testIDs: fuel-requested-input, fuel-shutdown-input, fuel-uplift-volume, fuel-clear-button. IMPORTANT: use locator.press_sequentially (not fill) for sanitization tests so onChangeText fires per keystroke. Viewport 390x844.",
+  "rca_of_issue": "N/A - verification iteration, no bugs reproduced.",
+  "verified_cases": [
+    {"case": "torque-input multi-dot '1.2.5' sanitized", "expected": "1.25", "actual": "1.25", "pass": true},
+    {"case": "torque-input comma '1,5' preserved and parsed as 1.5 (from Nm -> inlb=13, ftlb=1.1)", "expected": "1,5 / 13 / 1.1", "actual": "1,5 / 13 / 1.1", "pass": true},
+    {"case": "100 Nm -> inlb/ftlb", "expected": "885 / 73.8", "actual": "885 / 73.8", "pass": true},
+    {"case": "100 ft.lbs -> nm/inlb", "expected": "135.6 / 1,200", "actual": "135.6 / 1,200", "pass": true},
+    {"case": "100 in.lbs -> nm/ftlb", "expected": "11.3 / 8.3", "actual": "11.3 / 8.3", "pass": true},
+    {"case": "half-up: 1 Nm -> inlb/ftlb (8.85 half-up)", "expected": "9 / 0.7", "actual": "9 / 0.7", "pass": true},
+    {"case": "fuel-requested multi-dot '1.2.5' sanitized", "expected": "1.25", "actual": "1.25", "pass": true},
+    {"case": "fuel-shutdown comma '2,5' preserved", "expected": "2,5", "actual": "2,5", "pass": true},
+    {"case": "fuel regression 5000/1800 kg -> uplift L", "expected": "4,000", "actual": "4,000", "pass": true}
+  ]
+}

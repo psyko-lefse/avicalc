@@ -10,6 +10,8 @@ type Unit = "nm" | "inlb" | "ftlb";
 const TO_NM: Record<Unit, number> = { nm: 1, inlb: 0.112984829, ftlb: 1.3558179483 };
 const LABEL: Record<Unit, string> = { nm: "Nm", inlb: "in.lbs", ftlb: "ft.lbs" };
 const UNITS: Unit[] = ["nm", "inlb", "ftlb"];
+// Display precision: in.lbs whole numbers, Nm and ft.lbs one decimal
+const DECIMALS: Record<Unit, number> = { nm: 1, inlb: 0, ftlb: 1 };
 
 export default function TorqueScreen() {
   const styles = useStyles();
@@ -37,7 +39,7 @@ export default function TorqueScreen() {
         {UNITS.filter((u) => u !== from).map((u, i) => (
           <View key={u} style={[styles.row, i > 0 && styles.rowDivider]}>
             <Text style={styles.big} testID={`torque-result-${u}`}>
-              {value ? fmt(nm / TO_NM[u], 2) : "—"}
+              {value ? fmt(nm / TO_NM[u], DECIMALS[u]) : "—"}
             </Text>
             <Text style={styles.unit}>{LABEL[u]}</Text>
           </View>

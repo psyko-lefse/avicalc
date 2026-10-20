@@ -16,8 +16,19 @@ export const parseNum = (s: string) => {
   return isNaN(n) ? 0 : n;
 };
 
-export const fmt = (n: number, d = 0) =>
-  n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+// Keep digits and a single decimal separator ("." or ","); extra separators are dropped.
+export const sanitizeDecimal = (s: string) => {
+  const clean = s.replace(/[^0-9.,]/g, "");
+  const i = clean.search(/[.,]/);
+  return i === -1 ? clean : clean.slice(0, i + 1) + clean.slice(i + 1).replace(/[.,]/g, "");
+};
+
+// Round half up to d decimals (toPrecision strips float noise, so 8.85 -> 8.9).
+export const fmt = (n: number, d = 0) => {
+  const f = 10 ** d;
+  const r = Math.round(Number((n * f).toPrecision(12))) / f;
+  return r.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+};
 
 export function Screen({ title, subtitle, children }: { title: string; subtitle?: string; children: ReactNode }) {
   const styles = useStyles();
@@ -91,7 +102,7 @@ export function NumberField({
         <TextInput
           testID={testID}
           value={value}
-          onChangeText={(t) => onChange(t.replace(/[^0-9.,]/g, ""))}
+          onChangeText={(t) => onChange(sanitizeDecimal(t))}
           keyboardType="decimal-pad"
           placeholder={placeholder}
           placeholderTextColor={colors.muted}
