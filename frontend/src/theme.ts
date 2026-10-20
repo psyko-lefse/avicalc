@@ -1,7 +1,7 @@
 // Design tokens (light + dark). Keys match the "color" block of /app/design_guidelines.json.
 // Build styles with makeStyles; for non-style color props use useTheme().colors.
 
-import { useMemo } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { Appearance, StyleSheet, useColorScheme } from "react-native";
 
 export type ColorScheme = "light" | "dark";
@@ -80,14 +80,29 @@ export const defaultScheme = "light" satisfies ColorScheme;
 
 export const themes: { light: ThemeColors; dark?: ThemeColors } = { light, dark };
 
+// In-app override (null = follow device). Kept in JS so it also works on web.
+let override: ColorScheme | null = null;
+const listeners = new Set<() => void>();
+const subscribe = (l: () => void) => {
+  listeners.add(l);
+  return () => {
+    listeners.delete(l);
+  };
+};
+const getOverride = () => override;
+
 export function setColorScheme(scheme: ColorScheme | null) {
+  override = scheme;
   Appearance.setColorScheme?.(scheme ?? "unspecified");
+  listeners.forEach((l) => l());
 }
 
 setColorScheme?.(themes.dark ? null : defaultScheme);
 
 export function useTheme(): { scheme: ColorScheme; colors: ThemeColors } {
-  const system = useColorScheme();
+  const device = useColorScheme();
+  const forced = useSyncExternalStore(subscribe, getOverride, getOverride);
+  const system = forced ?? device;
   const scheme: ColorScheme = (system === "light" || system === "dark") && themes[system] ? system : defaultScheme;
   return { scheme, colors: themes[scheme] ?? themes.light };
 }

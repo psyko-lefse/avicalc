@@ -13,7 +13,7 @@ export default function SettingsScreen() {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { weightUnit, volumeUnit, setWeightUnit, setVolumeUnit } = useSettings();
+  const { weightUnit, volumeUnit, setWeightUnit, setVolumeUnit, themeMode, setThemeMode } = useSettings();
 
   return (
     <View style={styles.root}>
@@ -53,11 +53,18 @@ export default function SettingsScreen() {
             ]}
           />
         </View>
-        <View style={styles.info}>
-          <Feather name="info" size={16} color={colors.muted} />
-          <Text style={styles.infoText}>
-            AviCalc · Maintenance calculations. Fuel uplift uses Jet A1 density 0.8 kg/L. 1 US gal = 3.785 L, 1 lb = 0.4536 kg. Settings are saved on this device.
-          </Text>
+        <View style={styles.group}>
+          <Label>Appearance</Label>
+          <Segmented
+            testID="settings-theme-mode"
+            value={themeMode}
+            onChange={setThemeMode}
+            options={[
+              { value: "system", label: "System" },
+              { value: "light", label: "Light" },
+              { value: "dark", label: "Dark" },
+            ]}
+          />
         </View>
       </ScrollView>
     </View>
@@ -93,6 +100,4 @@ const useStyles = makeStyles((c) => ({
     borderColor: c.border,
     padding: 16,
   },
-  info: { flexDirection: "row", gap: 8, paddingHorizontal: 4 },
-  infoText: { flex: 1, fontSize: 13, color: c.muted, lineHeight: 18 },
 }));

@@ -28,6 +28,9 @@ Expo Router frontend only (no backend). Tabs: Fuel, Torque, Time, MEL (NativeTab
 - Restyled theme navy/cyan (light + dark), fonts Montserrat Bold (display) + Barlow (labels), logo in header
 - E2E tested: all passing (iteration_3)
 
+## Update 4 (2026-06)
+- Settings: removed info text; added Appearance toggle (System/Light/Dark), persisted locally, works on web + native
+
 ## Backlog
 - P1: Copy/share result, calculation history
 - P2: Custom fonts (Space Grotesk), extra unit conversions (temperature, pressure)
