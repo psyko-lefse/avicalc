@@ -38,7 +38,7 @@ export default function TimeScreen() {
     <Screen title="Time" subtitle="Add and subtract hours : minutes">
       <Card accent testID="time-total-card">
         <Label>Sum</Label>
-        <View style={styles.totalRow}>
+        <View style={styles.totalCol}>
           <Text style={styles.total} testID="time-total">{formatHM(total)}</Text>
           <Text style={styles.decimal} testID="time-total-decimal">{(total / 60).toFixed(2)} h</Text>
         </View>
@@ -83,16 +83,28 @@ export default function TimeScreen() {
             <Button label="Subtract" icon="minus" testID="time-subtract-button" onPress={() => apply(-1)} />
           </View>
         </View>
-        <Button
-          label="Reset"
-          icon="rotate-ccw"
-          testID="time-reset-button"
-          onPress={() => {
-            setHistory([]);
-            setH("");
-            setM("");
-          }}
-        />
+        <View style={styles.actions}>
+          <View style={{ flex: 1 }}>
+            <Button
+              label="Undo"
+              icon="corner-up-left"
+              testID="time-undo-button"
+              onPress={() => setHistory((list) => list.slice(1))}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              label="Reset"
+              icon="rotate-ccw"
+              testID="time-reset-button"
+              onPress={() => {
+                setHistory([]);
+                setH("");
+                setM("");
+              }}
+            />
+          </View>
+        </View>
       </Card>
 
       <Card testID="time-history">
@@ -118,7 +130,7 @@ export default function TimeScreen() {
 }
 
 const useStyles = makeStyles((c) => ({
-  totalRow: { flexDirection: "row", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginTop: -8 },
+  totalCol: { alignItems: "center", gap: 2, marginTop: -8 },
   total: { fontSize: 48, fontFamily: fonts.display, color: c.onBrandTertiary, fontVariant: ["tabular-nums"], letterSpacing: -1 },
   decimal: { fontSize: 18, fontFamily: fonts.semibold, color: c.onBrandTertiary, fontVariant: ["tabular-nums"] },
   inputRow: { flexDirection: "row", alignItems: "flex-end", gap: 8 },

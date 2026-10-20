@@ -31,6 +31,9 @@ Expo Router frontend only (no backend). Tabs: Fuel, Torque, Time, MEL (NativeTab
 ## Update 4 (2026-06)
 - Settings: removed info text; added Appearance toggle (System/Light/Dark), persisted locally, works on web + native
 
+## Update 5 (2026-06)
+- Time: decimal sum centered below HH:MM; Undo (left) removes last entry, Reset (right)
+
 ## Backlog
 - P1: Copy/share result, calculation history
 - P2: Custom fonts (Space Grotesk), extra unit conversions (temperature, pressure)
