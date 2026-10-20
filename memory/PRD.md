@@ -17,6 +17,12 @@ Expo Router frontend only (no backend). Tabs: Fuel, Torque, Time, MEL (NativeTab
 - Settings (kg/lb, L/US gal), haptics, light/dark
 - E2E tested: all passing (iteration_1)
 
+## Update 2 (2026-06)
+- Fuel: result shows only once both fields filled; single volume unit per settings
+- Time: single hours/minutes input with Add/Subtract, sum, reset and running history
+- MEL: tapping date opens custom calendar picker (works in Expo Go/web)
+- E2E tested: all passing (iteration_2)
+
 ## Backlog
 - P1: Copy/share result, calculation history
 - P2: Custom fonts (Space Grotesk), extra unit conversions (temperature, pressure)

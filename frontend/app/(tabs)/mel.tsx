@@ -1,8 +1,9 @@
 import Feather from "@react-native-vector-icons/feather";
-import { addDays, format, isValid, parse, startOfDay } from "date-fns";
+import { addDays, format, startOfDay } from "date-fns";
 import { useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
+import { CalendarModal } from "@/src/components/calendar-modal";
 import { Button, Card, Label, NumberField, Screen } from "@/src/components/ui";
 import { tap } from "@/src/haptics";
 import { makeStyles, useTheme } from "@/src/theme";
@@ -12,33 +13,18 @@ const CATS = [
   { cat: "C", days: 10 },
   { cat: "D", days: 120 },
 ];
-const INPUT_FMT = "dd.MM.yyyy";
-
 export default function MelScreen() {
   const styles = useStyles();
   const { colors } = useTheme();
   const [date, setDate] = useState(() => startOfDay(new Date()));
-  const [text, setText] = useState(() => format(new Date(), INPUT_FMT));
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const [custom, setCustom] = useState("");
 
-  const setBoth = (d: Date) => {
-    setDate(d);
-    setText(format(d, INPUT_FMT));
-  };
-
-  const onText = (t: string) => {
-    setText(t);
-    const d = parse(t, INPUT_FMT, new Date());
-    if (isValid(d) && t.length === 10) setDate(startOfDay(d));
-  };
-
-  const parsed = parse(text, INPUT_FMT, new Date());
-  const invalid = !(isValid(parsed) && text.length === 10);
   const customDays = parseInt(custom, 10);
 
   const shift = (n: number) => {
     tap();
-    setBoth(addDays(date, n));
+    setDate(addDays(date, n));
   };
 
   return (
@@ -49,27 +35,28 @@ export default function MelScreen() {
           <Pressable testID="mel-date-prev" onPress={() => shift(-1)} style={styles.step} accessibilityLabel="Previous day">
             <Feather name="chevron-left" size={24} color={colors.onSurfaceTertiary} />
           </Pressable>
-          <TextInput
+          <Pressable
             testID="mel-date-input"
-            value={text}
-            onChangeText={onText}
-            placeholder="DD.MM.YYYY"
-            placeholderTextColor={colors.muted}
-            keyboardType="numbers-and-punctuation"
-            maxLength={10}
-            style={[styles.dateInput, invalid && { borderColor: colors.error }]}
-          />
+            onPress={() => {
+              tap();
+              setCalendarOpen(true);
+            }}
+            style={({ pressed }) => [styles.dateInput, pressed && { opacity: 0.7 }]}
+            accessibilityLabel="Choose date of discovery"
+          >
+            <Feather name="calendar" size={18} color={colors.brandPrimary} />
+            <Text style={styles.dateText} testID="mel-date-value">{format(date, "dd.MM.yyyy")}</Text>
+          </Pressable>
           <Pressable testID="mel-date-next" onPress={() => shift(1)} style={styles.step} accessibilityLabel="Next day">
             <Feather name="chevron-right" size={24} color={colors.onSurfaceTertiary} />
           </Pressable>
         </View>
-        {invalid ? (
-          <Text style={styles.error} testID="mel-date-error">Enter date as DD.MM.YYYY</Text>
-        ) : (
-          <Text style={styles.weekday} testID="mel-date-weekday">{format(date, "EEEE, d MMMM yyyy")}</Text>
-        )}
-        <Button label="Today" icon="calendar" testID="mel-today-button" onPress={() => setBoth(startOfDay(new Date()))} />
+        <Text style={styles.weekday} testID="mel-date-weekday">{format(date, "EEEE, d MMMM yyyy")}</Text>
+        <Button label="Today" icon="calendar" testID="mel-today-button" onPress={() => setDate(startOfDay(new Date()))} />
       </Card>
+      {calendarOpen ? (
+        <CalendarModal visible value={date} onSelect={setDate} onClose={() => setCalendarOpen(false)} />
+      ) : null}
 
       {CATS.map(({ cat, days }) => (
         <ResultRow key={cat} title={`Cat ${cat}`} days={days} due={addDays(date, days)} testID={`mel-result-${cat.toLowerCase()}`} />
@@ -122,14 +109,13 @@ const useStyles = makeStyles((c) => ({
     borderWidth: 1,
     borderColor: c.border,
     backgroundColor: c.surfaceTertiary,
-    fontSize: 22,
-    fontWeight: "600",
-    color: c.onSurface,
-    textAlign: "center",
-    fontVariant: ["tabular-nums"],
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
   },
+  dateText: { fontSize: 22, fontWeight: "600", color: c.onSurface, fontVariant: ["tabular-nums"] },
   weekday: { fontSize: 15, color: c.muted, textAlign: "center", marginTop: -8 },
-  error: { fontSize: 14, color: c.error, textAlign: "center", marginTop: -8 },
   result: {
     flexDirection: "row",
     alignItems: "center",

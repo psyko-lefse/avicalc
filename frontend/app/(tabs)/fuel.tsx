@@ -19,7 +19,7 @@ export default function FuelScreen() {
   const upliftKg = weightUnit === "kg" ? upliftWeight : upliftWeight * LB_TO_KG;
   const liters = upliftKg / DENSITY;
   const volume = volumeUnit === "L" ? liters : liters / L_PER_USG;
-  const hasInput = requested !== "";
+  const hasInput = requested !== "" && shutdown !== "";
   const negative = hasInput && upliftWeight < 0;
 
   return (
@@ -61,9 +61,6 @@ export default function FuelScreen() {
           <View style={styles.meta}>
             <Text style={styles.metaText} testID="fuel-uplift-weight">
               Weight: {fmt(upliftWeight)} {weightUnit}
-            </Text>
-            <Text style={styles.metaText} testID="fuel-uplift-alt">
-              {volumeUnit === "L" ? `${fmt(liters / L_PER_USG)} US gal` : `${fmt(liters)} L`}
             </Text>
           </View>
         ) : null}

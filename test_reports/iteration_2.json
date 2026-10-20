@@ -1,0 +1,41 @@
+{
+  "summary": "Comprehensive frontend-only E2E testing of the three change requests (Fuel dash + single volume unit, Time add/subtract with history, MEL calendar picker) plus regression. 37 assertions executed across Fuel, Time, MEL, Calendar modal, and Torque regression; all behavioral assertions passed. One expected-value in the script (Cat D for 2026-10-05) was incorrect in the spec — the app correctly computes 'Tue 02 Feb 2027' (Feb 2 2027 is a Tuesday). No bugs found. No React Native / Expo deprecated-package issues.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_2.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "fuel.tsx: 'hasInput' gate correctly suppresses weight meta and shows '—' when either input empty; fuel-uplift-alt element removed as required; only one of L / US gal shown via volumeUnit setting.",
+    "time.tsx: history is a prepended list, total is derived from history[0].sum (clean source of truth). Minutes/hours regex strips non-digits; parseInt(h)*60 + parseInt(m) auto-normalizes 0:90 -> +1:30 correctly. 'apply' is a no-op when both inputs empty.",
+    "mel.tsx + calendar-modal.tsx: Pressable mel-date-input opens Modal; backdrop Pressable + inner sheet Pressable with noop onPress properly contains clicks; selecting a day calls onSelect then onClose; today-button and cancel-button wired; prev/next month navigation works; day cell testIDs stable (calendar-day-YYYY-MM-DD)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Preview app date is October 2026. URL https://flight-ops-calc.preview.emergentagent.com, viewport 390x844. New testIDs validated: fuel-uplift-volume shows '—' when either requested or shutdown is empty; fuel-uplift-alt no longer rendered (only one volume unit per settings). Time tab replaced the prior per-entry list with a running-sum history: time-hours-input, time-minutes-input, time-add-button, time-subtract-button, time-reset-button, time-total, time-total-decimal, time-history, time-history-empty, time-history-row-{0..n} (row 0 is newest). History rows contain delta (signed e.g. '+1:30' / '−0:45', note minus sign is U+2212) and running sum '= H:MM'. Calendar: calendar-modal, calendar-backdrop, calendar-prev-month, calendar-next-month, calendar-month-label (format 'MMMM yyyy'), calendar-day-YYYY-MM-DD, calendar-cancel-button, calendar-today-button. mel-date-input is a Pressable (not TextInput). Verified calculations: 5000/1800kg -> 4,000 L; USG -> 1,057; 100 Nm -> 885.07 in.lbs / 73.76 ft.lbs; 2026-10-05 -> B 'Thu 08 Oct 2026', C 'Thu 15 Oct 2026', D 'Tue 02 Feb 2027'.",
+  "rca_of_issue": "N/A — no bugs found. 36/37 explicit assertions passed; the remaining assertion was a wrong expected weekday in the test script (Feb 2 2027 is Tuesday, not Monday) — the app is correct.",
+  "verified_cases": {
+    "fuel_only_requested": "fuel-uplift-volume = '—', fuel-uplift-weight absent, fuel-uplift-alt absent",
+    "fuel_both_entered_kg_L": "5000/1800 -> 4,000 L (single unit shown, no alt)",
+    "fuel_usg_mode": "USG setting -> 1,057 (no secondary unit shown)",
+    "time_add_1_30": "sum=1:30, decimal=1.50 h, inputs cleared, row0=+1:30 =1:30",
+    "time_sub_0_45": "sum=0:45, decimal=0.75 h, row0=−0:45 =0:45, row1 preserved as +1:30 =1:30",
+    "time_empty_press": "no-op, history-empty remains visible, total 0:00",
+    "time_normalize_0_90": "entered 0:90 add -> delta +1:30 recorded, sum 2:15",
+    "time_reset": "clears total to 0:00 and shows time-history-empty",
+    "mel_calendar_open": "tap mel-date-input opens calendar-modal",
+    "mel_month_nav": "prev/next month updates calendar-month-label (Oct->Sep->Oct->Nov 2026)",
+    "mel_close_mechanisms": "calendar-cancel-button, backdrop click, calendar-today-button, day select all close modal",
+    "mel_day_select_2026_10_05": "mel-date-value=05.10.2026, Cat B Thu 08 Oct 2026, Cat C Thu 15 Oct 2026, Cat D Tue 02 Feb 2027",
+    "mel_prev_next_day": "mel-date-next -> 06.10.2026, mel-date-prev -> 05.10.2026",
+    "mel_custom_days": "+7 from 2026-10-05 -> Mon 12 Oct 2026",
+    "torque_regression": "100 Nm -> 885.07 in.lbs / 73.76 ft.lbs (unchanged)"
+  }
+}
