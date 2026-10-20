@@ -1,0 +1,44 @@
+{
+  "summary": "Comprehensive frontend-only E2E testing of the Aviation Calculator Expo app at viewport 390x844. All four tabs (Fuel, Torque, Time, MEL), Settings modal, and persistence verified. All expected calculations match spec exactly. No React Native / Expo deprecated-package issues detected. No layout overflow at 390px. 100% of specified feature cases passed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_1.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "All interactive elements have proper testID attributes.",
+    "Settings persisted via storage utility and reloaded on mount — verified working after full page reload.",
+    "No deprecated packages detected (uses expo-router, react-native-keyboard-controller, @react-native-vector-icons/feather, date-fns).",
+    "All text correctly wrapped in <Text>, styles via StyleSheet.create via makeStyles helper."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "App is offline, frontend-only. URL: https://flight-ops-calc.preview.emergentagent.com. Viewport 390x844. All testIDs are stable: tab-{fuel,torque,time,mel}, open-settings-button, settings-{weight,volume}-unit-{kg,lb,L,USG}, settings-close-button, fuel-{requested,shutdown}-input, fuel-uplift-{volume,weight,alt}, fuel-no-uplift, torque-{from-unit,input}, torque-result-{nm,inlb,ftlb}, torque-from-unit-{nm,inlb,ftlb}, time-{total,total-decimal,add-button,subtract-button,reset-button}, time-entry-{sign,hours,minutes,remove}-{index}, mel-{date-input,date-prev,date-next,date-error,date-weekday,today-button,custom-input}, mel-result-{b,c,d,custom}, mel-result-{b,c,d}-date. When testing tab navigation, add wait_for_timeout(500-800ms) after tab click before asserting screen-title text — Expo Router tab transitions can take a moment on web.",
+  "rca_of_issue": "N/A — no bugs found.",
+  "verified_cases": {
+    "fuel_kg_L_5000_1800": "uplift volume=4,000 L, weight=3,200 kg, alt=1,057 US gal (match spec)",
+    "fuel_no_uplift": "shows 'No uplift required — shutdown fuel exceeds request by 1,000 kg' via testID fuel-no-uplift",
+    "settings_lb_USG_1000lb": "uplift=150 US gal, alt=567 L (match spec)",
+    "settings_persistence": "After full reload, lb/USG retained; recalculated 2000-1000 lb -> 150",
+    "torque_100_nm": "885.07 in.lbs, 73.76 ft.lbs (match spec)",
+    "torque_from_ftlb_100": "135.58 Nm, 1,200.00 in.lbs",
+    "time_add": "1:30 + 2:45 = 4:15",
+    "time_subtract_sign_toggle": "1:30 + (−2:45) = −1:15",
+    "time_minutes_normalize": "1h 90m -> 2:30",
+    "time_add_subtract_remove_reset": "all buttons functional; reset returns to single empty entry (0:00)",
+    "mel_01_06_2026": "Cat B Thu 04 Jun 2026, Cat C Thu 11 Jun 2026, Cat D Tue 29 Sep 2026 (match spec)",
+    "mel_prev_next": "01.06.2026 next -> 02.06.2026; two prevs -> 31.05.2026",
+    "mel_invalid_date": "'32.13.2026' shows mel-date-error",
+    "mel_today": "Today button sets today's date",
+    "mel_custom_days": "01.06.2026 + 5 -> Sat 06 Jun 2026",
+    "tab_navigation": "all four tabs reachable; screen titles update correctly after short wait",
+    "layout_overflow_390": "no horizontal overflow (scrollWidth == clientWidth)"
+  }
+}

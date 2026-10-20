@@ -1,0 +1,195 @@
+{
+  "app_name": "AeroCalc",
+  "personality": "1 iOS-Native Clean",
+  "personality_one_liner": "A highly readable, industrial-grade aviation utility app prioritizing glanceability and precision over decoration.",
+  "color": {
+    "light": {
+      "surface": "#FAFAFA",
+      "onSurface": "#171717",
+      "surfaceSecondary": "#FFFFFF",
+      "onSurfaceSecondary": "#171717",
+      "surfaceTertiary": "#F5F5F5",
+      "onSurfaceTertiary": "#262626",
+      "surfaceInverse": "#171717",
+      "onSurfaceInverse": "#FFFFFF",
+      "brand": "#EA580C",
+      "onBrand": "#FFFFFF",
+      "brandPrimary": "#EA580C",
+      "onBrandPrimary": "#FFFFFF",
+      "brandSecondary": "#C2410C",
+      "onBrandSecondary": "#FFFFFF",
+      "brandTertiary": "#FFEDD5",
+      "onBrandTertiary": "#9A3412",
+      "success": "#166534",
+      "onSuccess": "#FFFFFF",
+      "warning": "#854D0E",
+      "onWarning": "#FFFFFF",
+      "error": "#991B1B",
+      "onError": "#FFFFFF",
+      "info": "#374151",
+      "onInfo": "#FFFFFF",
+      "border": "#E5E5E5",
+      "borderStrong": "#D4D4D4",
+      "divider": "#E5E5E5",
+      "muted": "#737373"
+    },
+    "dark": {
+      "surface": "#0A0A0A",
+      "onSurface": "#F5F5F5",
+      "surfaceSecondary": "#171717",
+      "onSurfaceSecondary": "#F5F5F5",
+      "surfaceTertiary": "#262626",
+      "onSurfaceTertiary": "#D4D4D4",
+      "surfaceInverse": "#FFFFFF",
+      "onSurfaceInverse": "#171717",
+      "brand": "#F97316",
+      "onBrand": "#0A0A0A",
+      "brandPrimary": "#F97316",
+      "onBrandPrimary": "#0A0A0A",
+      "brandSecondary": "#FB923C",
+      "onBrandSecondary": "#0A0A0A",
+      "brandTertiary": "#431407",
+      "onBrandTertiary": "#FFEDD5",
+      "success": "#22C55E",
+      "onSuccess": "#0A0A0A",
+      "warning": "#EAB308",
+      "onWarning": "#0A0A0A",
+      "error": "#EF4444",
+      "onError": "#0A0A0A",
+      "info": "#9CA3AF",
+      "onInfo": "#0A0A0A",
+      "border": "#262626",
+      "borderStrong": "#404040",
+      "divider": "#262626",
+      "muted": "#A3A3A3"
+    }
+  },
+  "typography": {
+    "displayFontFamily": "Space Grotesk",
+    "textFontFamily": "Geist",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous vertical rhythm, maintaining clear hierarchy between form inputs, values, and settings. Padding prevents cramping on dense calculator fields.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": 1,
+  "navigation": "bottom_tabs",
+  "icon_set": "Feather",
+  "glassmorphism": {
+    "enabled": true,
+    "do's": [
+      "Use glass effect on sticky bottom tab bar.",
+      "Use glass effect on the Settings modal header and floating action buttons."
+    ],
+    "dont's": [
+      "Do not use glass on calculation cards or input forms, as it compromises text readability."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Fuel Uplift",
+      "purpose": "Calculates required fuel volume for Jet A1 based on requested fuel and shutdown weight.",
+      "states": {
+        "loading": "Spinner centered in calculator container.",
+        "empty": "Default input states with hint text.",
+        "error": "Error toast inline if density or input formats are missing."
+      },
+      "layout": "A split-card layout. Top card is Input (Requested Fuel Weight, Shutdown Fuel Weight). Bottom card is Output/Result heavily emphasized using Space Grotesk with a distinct background (brandTertiary) and large typography. A FAB or sticky button to clear/reset."
+    },
+    {
+      "name": "Torque",
+      "purpose": "Converts torque values between Nm, in.lbs, and ft.lbs.",
+      "states": {
+        "loading": "Centered spinner.",
+        "empty": "Segmented controls for from/to, input field empty with '0' placeholder.",
+        "error": "Inline error for invalid numeric input."
+      },
+      "layout": "Use segmented controls or a minimal bottom sheet for unit selection. Real-time conversion displaying the result dynamically as the user types, eliminating the need for a 'Calculate' button."
+    },
+    {
+      "name": "Time",
+      "purpose": "Adds and subtracts multiple time entries (HH:MM).",
+      "states": {
+        "loading": "Centered spinner.",
+        "empty": "Empty state illustration with 'Add your first time entry' text and a prominent CTA.",
+        "error": "Inline error for invalid time format."
+      },
+      "layout": "A vertically scrolling list of time entries (like a ledger or receipt). Bottom sticky bar containing 'Add Entry' (or +/- controls) and the live running total highlighted in brandPrimary color."
+    },
+    {
+      "name": "MEL Date",
+      "purpose": "Calculates target dates for MEL items (Cat B, C, D) based on a selected discovery date and customizable offset.",
+      "states": {
+        "loading": "Centered spinner.",
+        "empty": "Defaults to today's date for Discovery.",
+        "error": "Invalid date error."
+      },
+      "layout": "A form featuring a native date picker for the discovery date. Below, a card grid displaying the exact dates for Cat B (+3), Cat C (+10), Cat D (+120), and a final custom input row for '+ X days'. Output dates should be large and bold."
+    },
+    {
+      "name": "Settings (Modal)",
+      "purpose": "Configures global units (Volume: Liters/Gallons, Weight: Kg/Pounds) and Theme settings.",
+      "states": {
+        "loading": "None.",
+        "empty": "None.",
+        "error": "None."
+      },
+      "layout": "A clean iOS-style grouped list (surfaceSecondary rows with dividers on a surface background) to toggle Volume and Weight units. Opens via a gear icon in the header."
+    }
+  ],
+  "images": {
+    "splash_background": {
+      "url": "https://images.unsplash.com/photo-1667892702884-faa077e80d7b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHRpdGFuaXVtJTIwbWV0YWwlMjB0ZXh0dXJlJTIwbWFjcm98ZW58MHx8fHwxNzkyNTE0NDM3fDA&ixlib=rb-4.1.0&q=85",
+      "dark": "https://images.unsplash.com/photo-1667892702884-faa077e80d7b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHRpdGFuaXVtJTIwbWV0YWwlMjB0ZXh0dXJlJTIwbWFjcm98ZW58MHx8fHwxNzkyNTE0NDM3fDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Abstract brushed titanium metal texture"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the aviation utility theme. No purples, no blues, use the defined Orange/Amber tokens for high-visibility interactive elements.",
+    "Implement light and dark mode comprehensively. Avoid absolute pure black (#000000); use the defined #0A0A0A and #171717 surfaces for a better OLED-friendly experience without harsh contrast.",
+    "For the Fuel Uplift Calculator, Jet A1 density is fixed at 0.8kg/L. Apply the conversion strictly.",
+    "Store unit preferences (liters vs gallons, kg vs pounds) in local offline storage (AsyncStorage) from the Settings modal.",
+    "In the Time Calculator, format the layout like a running ledger. Allow easy addition/subtraction of HH:MM.",
+    "Use Space Grotesk exclusively for large numeric outputs and calculator results to emphasize readability and technical precision. Use Geist for standard labels.",
+    "Implement haptics on all calculator inputs and button presses, as tactile feedback is crucial in a work environment.",
+    "Ensure Settings is accessible via a gear icon in the header of the primary screens, triggering a bottom sheet or modal."
+  ],
+  "haptics": {
+    "button_press": "light",
+    "tab_change": "light",
+    "calculate_success": "medium",
+    "error": "notification_error",
+    "unit_toggle": "selection"
+  }
+}
