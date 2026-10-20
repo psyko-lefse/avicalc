@@ -45,6 +45,9 @@ Expo Router frontend only (no backend). Tabs: Fuel, Torque, Time, MEL (NativeTab
 - Play Store assets in /app/frontend/assets/store-screenshots: 12 phone screenshots 1080x1920 (dark + light: splash, fuel, torque, time, MEL, calendar) + feature graphic 1024x500
 - Font fix: MEL weekday line and Time empty-history text now use Barlow
 
+## Update 9 (2026-06)
+- App identifiers changed to com.butterhill.avicalc (android.package + ios.bundleIdentifier)
+
 ## Backlog
 - P1: Copy/share result, calculation history
 - P2: Custom fonts (Space Grotesk), extra unit conversions (temperature, pressure)

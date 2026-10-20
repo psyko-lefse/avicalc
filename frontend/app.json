@@ -9,14 +9,14 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.emergent.flightopscalc.qlr6sd"
+      "bundleIdentifier": "com.butterhill.avicalc"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#01244D"
       },
-      "package": "com.emergent.flightopscalc.qlr6sd"
+      "package": "com.butterhill.avicalc"
     },
     "web": {
       "bundler": "metro",
